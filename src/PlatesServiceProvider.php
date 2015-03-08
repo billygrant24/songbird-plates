@@ -34,9 +34,9 @@ class PlatesServiceProvider extends ServiceProvider
         $template->getTwig()->addData([
             'siteTitle' => $config->get('vars.siteTitle'),
             'baseUrl' => $config->get('vars.baseUrl'),
-            'themeDir' => $config->get('vars.baseUrl') . '/themes/' . $config->get('display.theme'),
-            'dateFormat' => $config->get('dateFormat'),
-            'excerptLength' => $config->get('excerptLength'),
+            'themeDir' => $config->get('vars.baseUrl') . '/themes/' . $config->get('app.theme'),
+            'dateFormat' => $config->get('vars.dateFormat'),
+            'excerptLength' => $config->get('vars.excerptLength'),
         ]);
 
         $app->add('Template', $template);
@@ -71,7 +71,7 @@ class PlatesServiceProvider extends ServiceProvider
 
         $app->add('Plates.Engine', new Engine(null, $config['plates.extension']));
 
-        $themeDir = vsprintf('%s/%s', [$config['plates.templatesDir'], $config['display.theme']]);
+        $themeDir = vsprintf('%s/%s', [$config['plates.templatesDir'], $config['app.theme']]);
         $app->get('Plates.Engine')->addFolder('theme', $themeDir);
     }
 }

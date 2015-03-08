@@ -40,10 +40,10 @@ class QueryExtension implements ExtensionInterface, ContainerAwareInterface
             $collection->where($query[0], $query[1], $query[2]);
         }
 
-        $orderBy = isset($params['orderBy']) ? $params['orderBy'] : $config['display.sorting'];
+        $orderBy = isset($params['orderBy']) ? $params['orderBy'] : $config['vars.sorting'];
         $collection->orderBy($orderBy);
 
-        $limit = isset($params['limit']) ? $params['limit'] : $config['display.perPage'];
+        $limit = isset($params['limit']) ? $params['limit'] : $config['vars.perPage'];
         $collection->paginate($limit);
 
         return $collection->execute();

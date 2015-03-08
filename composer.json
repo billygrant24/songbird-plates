@@ -1,0 +1,19 @@
+{
+    "name": "williamgb/songbird-plates",
+    "description": "Plates service provider for Songbird",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "William Grant-Buckley",
+            "email": "ahoy@williambuckley.co.uk"
+        }
+    ],
+    "require": {
+        "league/plates": "~3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Songbird\\Package\\Plates\\": "src/"
+        }
+    }
+}

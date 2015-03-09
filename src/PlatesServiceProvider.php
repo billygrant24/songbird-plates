@@ -2,30 +2,24 @@
 namespace Songbird\Package\Plates;
 
 use League\Container\ContainerInterface;
-use League\Container\ServiceProvider;
 use League\Plates\Engine;
+use Songbird\PackageProviderAbstract;
 
-class PlatesServiceProvider extends ServiceProvider
+class PlatesServiceProvider extends PackageProviderAbstract
 {
     protected $provides = [
         'Template'
     ];
 
     /**
-     * Use the register method to register items with the container via the
-     * protected $this->container property or the `getContainer` method
-     * from the ContainerAwareTrait.
-     *
-     * @return void
+     * @param \League\Container\ContainerInterface $app
      */
-    public function register()
+    public function registerPackage(ContainerInterface $app)
     {
-        $app = $this->getContainer();
-        $config = $this->getContainer()->get('Config');
+        $config = $app->get('Config');
 
         $this->registerEngine($app);
         $this->registerExtensions($app);
-        $this->registerEventListeners($app);
 
         $template = $app->resolve('Songbird\Package\Plates\Template');
 
@@ -40,15 +34,6 @@ class PlatesServiceProvider extends ServiceProvider
         ]);
 
         $app->add('Template', $template);
-    }
-
-    /**
-     * @param \League\Container\ContainerInterface $app
-     */
-    protected function registerEventListeners(ContainerInterface $app)
-    {
-        // Renders the full template.
-        $app->addListener('RenderTemplate', $app->get('Songbird\Package\Plates\TemplateParser'));
     }
 
     /**

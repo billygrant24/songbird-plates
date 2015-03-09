@@ -25,8 +25,8 @@ class FragmentExtension implements ExtensionInterface, ContainerAwareInterface
      */
     public function fragment($id, array $params = [])
     {
-        $fragment = $this->getContainer()->get('App.Repo.Fragments')->findById($id);
-        $fragment = $this->getContainer()->get('App.Document.Transformer')->apply($fragment);
+        $fragment = $this->getContainer()->get('Repo.Fragments')->findById($id);
+        $fragment = $this->getContainer()->get('Document.Transformer')->apply($fragment);
 
         return $fragment->body;
     }

@@ -27,7 +27,7 @@ class QueryExtension implements ExtensionInterface, ContainerAwareInterface
     public function query(array $params = [])
     {
         $config = $this->getContainer()->get('Config');
-        $repo = $this->getContainer()->get('App.Repo.Documents');
+        $repo = $this->getContainer()->get('Repo.Documents');
 
         $collection = $repo->query();
 

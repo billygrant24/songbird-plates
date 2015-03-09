@@ -15,8 +15,9 @@ class Template extends TemplateAbstract
      */
     public function render($content, $data = null)
     {
-        if ($this->getEngine()->exists(sprintf('theme::%s', $content))) {
-            $content = sprintf('theme::%s', $content);
+        $templateName = sprintf('theme::%s', $content);
+        if ($this->getEngine()->exists($templateName)) {
+            $content = $templateName;
         }
 
         $this->setData([

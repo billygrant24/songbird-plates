@@ -2,9 +2,9 @@
 namespace Songbird\Package\Plates;
 
 use League\Event\EventInterface;
-use Songbird\Package\Twig\Parser\AbstractParser;
+use Songbird\Template\ParserAbstract;
 
-class TemplateParser extends AbstractParser
+class TemplateParser extends ParserAbstract
 {
     /**
      * @param \League\Event\EventInterface $event

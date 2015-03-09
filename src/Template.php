@@ -8,9 +8,9 @@ use Songbird\Template\TemplateInterface;
 class Template implements TemplateInterface
 {
     /**
-     * @var \Twig_Environment
+     * @var object
      */
-    protected $twig;
+    protected $engine;
 
     /**
      * @var array
@@ -58,17 +58,17 @@ class Template implements TemplateInterface
     /**
      * @return \Twig_Environment $twig
      */
-    public function getTwig()
+    public function getEngine()
     {
-        return $this->twig;
+        return $this->engine;
     }
 
     /**
      * @param \League\Plates\Engine|\Twig_Environment $plates
      */
-    public function setTwig(Engine $plates)
+    public function setEngine(Engine $plates)
     {
-        $this->twig = $plates;
+        $this->engine = $plates;
     }
 
     /**

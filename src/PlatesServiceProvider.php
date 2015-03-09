@@ -29,9 +29,9 @@ class PlatesServiceProvider extends ServiceProvider
 
         $template = $app->resolve('Songbird\Package\Plates\Template');
 
-        $template->setTwig($app->get('Plates.Engine'));
+        $template->setEngine($app->get('Plates.Engine'));
 
-        $template->getTwig()->addData([
+        $template->getEngine()->addData([
             'siteTitle' => $config->get('vars.siteTitle'),
             'baseUrl' => $config->get('vars.baseUrl'),
             'themeDir' => $config->get('vars.baseUrl') . '/themes/' . $config->get('app.theme'),

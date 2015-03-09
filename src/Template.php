@@ -27,7 +27,7 @@ class Template implements TemplateInterface
      */
     public function render($content, $data = null)
     {
-        if ($this->getTwig()->exists(sprintf('theme::%s', $content))) {
+        if ($this->getEngine()->exists(sprintf('theme::%s', $content))) {
             $content = sprintf('theme::%s', $content);
         }
 
@@ -36,7 +36,7 @@ class Template implements TemplateInterface
             'content' => $data->body,
         ]);
 
-        return $this->getTwig()->render($content, $this->getData());
+        return $this->getEngine()->render($content, $this->getData());
     }
 
     /**

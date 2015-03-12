@@ -33,11 +33,13 @@ class QueryExtension implements ExtensionInterface, ContainerAwareInterface
 
         if (isset($params['type'])) {
             $collection->where('_type', '==', $params['type']);
+            unset($params['_type']);
         }
 
         $queries = isset($params['query']) ? $params['query'] : [];
-        foreach ($queries as $query) {
-            $collection->where($query[0], $query[1], $query[2]);
+        foreach ($queries as $key => $value) {
+            $q = $this->detectOps($key);
+            $collection->where($q['field'], $q['operator'], $value);
         }
 
         $orderBy = isset($params['orderBy']) ? $params['orderBy'] : $config['vars.sorting'];
@@ -47,6 +49,20 @@ class QueryExtension implements ExtensionInterface, ContainerAwareInterface
         $collection->paginate($limit);
 
         return $collection->execute();
+    }
+
+    protected function detectOps($key)
+    {
+        $result['field'] = $key;
+        $result['operator'] = '==';
+
+        if (strpos($key, ' ')) {
+            $parts = explode(' ', $key);
+            $result['field'] = trim($parts[0]);
+            $result['operator'] = trim($parts[1]);
+        }
+
+        return $result;
     }
 
     public function paginator($resultSet)

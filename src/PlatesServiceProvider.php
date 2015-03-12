@@ -43,8 +43,10 @@ class PlatesServiceProvider extends PackageProviderAbstract
      */
     protected function registerExtensions(ContainerInterface $app)
     {
-        $app->get('Plates.Engine')->loadExtension($app->resolve('Songbird\Package\Plates\Extension\QueryExtension'));
-        $app->get('Plates.Engine')->loadExtension($app->resolve('Songbird\Package\Plates\Extension\FragmentExtension'));
+        $app->get('Plates.Engine')->loadExtensions([
+            $app->resolve('Songbird\Package\Plates\Extension\QueryExtension'),
+            $app->resolve('Songbird\Package\Plates\Extension\FragmentExtension'),
+        ]);
     }
 
     /**

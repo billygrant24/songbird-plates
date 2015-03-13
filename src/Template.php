@@ -1,6 +1,7 @@
 <?php
 namespace Songbird\Package\Plates;
 
+use org\bovigo\vfs\vfsStream;
 use Songbird\Template\TemplateAbstract;
 
 class Template extends TemplateAbstract
@@ -21,8 +22,15 @@ class Template extends TemplateAbstract
         }
 
         $this->setData(['meta' => $this->parseMeta($data)]);
-        $this->setData(['content' => $this->replacePlaceholders($data->body)]);
+        $this->setData(['content' => $this->replacePlaceholders($data['body'])]);
 
         return $this->getEngine()->render($content, $this->getData());
+    }
+
+    public function renderString($content)
+    {
+        vfsStream::create(['template.plates.php' => $this->replacePlaceholders($content)]);
+
+        return $this->getEngine()->render('virtual::template', $this->getData());
     }
 }

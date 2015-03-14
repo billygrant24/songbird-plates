@@ -27,9 +27,16 @@ class Template extends TemplateAbstract
         return $this->getEngine()->render($content, $this->getData());
     }
 
+    /**
+     * Render a template from a string.
+     *
+     * @param string $content
+     *
+     * @return mixed
+     */
     public function renderString($content)
     {
-        vfsStream::create(['template.plates.php' => $this->replacePlaceholders($content)]);
+        vfsStream::create(['template.php' => $this->replacePlaceholders($content)]);
 
         return $this->getEngine()->render('virtual::template', $this->getData());
     }

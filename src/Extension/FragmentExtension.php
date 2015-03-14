@@ -21,13 +21,15 @@ class FragmentExtension implements ExtensionInterface, ContainerAwareInterface
      * @param string $id
      * @param array  $params
      *
-     * @return \JamesMoss\Flywheel\Result
+     * @return mixed
      */
     public function fragment($id, array $params = [])
     {
-        $fragment = $this->getContainer()->get('Fragment.Repository')->find($id);
-        $fragment = $this->getContainer()->get('Document.Transformer')->apply($fragment);
+        $app = $this->getContainer();
 
-        return $this->getContainer()->get('Template')->renderString($fragment['body']);
+        $fragment = $app->get('Fragment.Repository')->find($id);
+        $fragment['body'] = $app->get('CommonMark')->convertToHtml($fragment['body']);
+
+        return $app->get('Template')->renderString($fragment['body']);
     }
 }

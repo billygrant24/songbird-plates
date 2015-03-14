@@ -13,11 +13,17 @@ class QueryExtension implements ExtensionInterface, ContainerAwareInterface
 
     public function register(Engine $engine)
     {
-        $engine->registerFunction('paginator', [$this, 'paginator']);
+        $engine->registerFunction('query', [$this, 'getQuery']);
+        $engine->registerFunction('pager', [$this, 'getPager']);
     }
 
-    public function paginator($resultSet)
+    public function getPager($resultSet)
     {
         return new Paginator($resultSet);
+    }
+
+    public function getQuery()
+    {
+        return $this->getContainer()->get('Document.Repository');
     }
 }

@@ -6,13 +6,13 @@ use League\Container\ContainerAwareTrait;
 use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 
-class FragmentExtension implements ExtensionInterface, ContainerAwareInterface
+class BlockExtension implements ExtensionInterface, ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
     public function register(Engine $engine)
     {
-        $engine->registerFunction('fragment', [$this, 'fragment']);
+        $engine->registerFunction('block', [$this, 'getBlock']);
     }
 
     /**
@@ -23,13 +23,13 @@ class FragmentExtension implements ExtensionInterface, ContainerAwareInterface
      *
      * @return mixed
      */
-    public function fragment($id, array $params = [])
+    public function getBlock($id, array $params = [])
     {
         $app = $this->getContainer();
 
-        $fragment = $app->get('Fragment.Repository')->find($id);
-        $fragment['body'] = $app->get('CommonMark')->convertToHtml($fragment['body']);
+        $block = $app->get('Repository.Block')->find($id);
+        $block['body'] = $app->get('CommonMark')->convertToHtml($block['body']);
 
-        return $app->get('Template')->renderString($fragment['body']);
+        return $app->get('Template')->renderString($block['body']);
     }
 }

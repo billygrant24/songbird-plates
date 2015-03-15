@@ -24,6 +24,8 @@ class QueryExtension implements ExtensionInterface, ContainerAwareInterface
 
     public function getQuery()
     {
-        return $this->getContainer()->get('Document.Repository');
+        return $this->getContainer()->get('Repository.Content')->filter(function ($file) {
+            return trim($file['body']) !== '...';
+        });
     }
 }

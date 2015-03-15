@@ -21,7 +21,7 @@ class Template extends TemplateAbstract
             $content = $templateName;
         }
 
-        $this->setData(['meta' => $this->parseMeta($data)]);
+        $this->setData(['meta' => $this->filterMeta($data)]);
         $this->setData(['content' => $this->replacePlaceholders($data['body'])]);
 
         return $this->getEngine()->render($content, $this->getData());

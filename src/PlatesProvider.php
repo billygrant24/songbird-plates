@@ -14,6 +14,8 @@ class PlatesProvider extends PackageProviderAbstract
 
     /**
      * @param \League\Container\ContainerInterface $app
+     *
+     * @return mixed|void
      */
     public function registerPackage(ContainerInterface $app)
     {
@@ -35,7 +37,7 @@ class PlatesProvider extends PackageProviderAbstract
     {
         $app->get('Plates.Engine')->loadExtensions([
             $app->get('Songbird\Package\Plates\Extension\QueryExtension'),
-            $app->get('Songbird\Package\Plates\Extension\FragmentExtension'),
+            $app->get('Songbird\Package\Plates\Extension\BlockExtension'),
         ]);
     }
 
